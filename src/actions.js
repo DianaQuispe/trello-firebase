@@ -1,64 +1,97 @@
 import store from "./store";
 import * as firebase from "firebase"; //importamos desde firebase
 
-export function addBoards (firstName, lastName, email, password, confirmPassword ) {
-  console.log('firstName', firstName+ '-' + 'lastName' ,lastName + 'email', email +'-' +  'password' ,password + '-' + 'confirmPassword', confirmPassword);
-}
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDkZNXDdkzzYQ8ZY9O29YKf_z5Sn1iy-68",
-    authDomain: "trello-react.firebaseapp.com",
-    databaseURL: "https://trello-react.firebaseio.com",
-    projectId: "trello-react",
-    storageBucket: "trello-react.appspot.com",
-    messagingSenderId: "441370051292"
-  };
-  firebase.initializeApp(config);
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDkZNXDdkzzYQ8ZY9O29YKf_z5Sn1iy-68",
+  authDomain: "trello-react.firebaseapp.com",
+  databaseURL: "https://trello-react.firebaseio.com",
+  projectId: "trello-react",
+  storageBucket: "trello-react.appspot.com",
+  messagingSenderId: "441370051292"
+};
+firebase.initializeApp(config);
 
-let datitos = store.getState().boards
-console.log(datitos)
+let datosUsers = store.getState().users;
+
+export function writeUserData() {
+  firebase
+    .database()
+    .ref("users")
+    .set({
+      datosUsers
+    });
+}
+
+export function addBoards(
+  firstName,
+  lastName,
+  email,
+  password,
+  confirmPassword
+) {
+  console.log(
+    "firstName",
+    firstName + "-" + "lastName",
+    lastName + "email",
+    email + "-" + "password",
+    password + "-" + "confirmPassword",
+    confirmPassword
+  );
+}
+
+let datosBoards = store.getState().boards;
 
 firebase
   .database()
-  .ref("boards")
+  .ref("datosUsers/")
   .push({
+    firstName: "asd",
+    lastNamev: "Quasdispe",
+    email: "danaaliasdenmas@gmail.com",
+    password: "as",
+    confirmPassword: "asd"
   })
   .then()
   .catch();
 
-  // export const auth = firebase.auth();
-  // export const storage = firebase.storage();
-  // export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
- 
+// firebase
+//   .database()
+//   .ref("users")
+//   .push({ datosUsers })
+//   .then()
+//   .catch();
+
+// export const storage = firebase.storage();
+// export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 // ////////////////////////
 
-// const snapshotToArray = snapshot => {
-// let datos = [];
-// console.log("datos ", datos);
+const snapshotToArray = snapshot => {
+  let datos = [];
+  console.log("datos ", datos);
 
-// snapshot.forEach(childSnapshot => {
-//   let item = childSnapshot.val();
-//   let key = childSnapshot.key;
-//   item.id= key;
-//   console.log("item ", item);
-//   datos.push(item);
-//     console.log("key ", key);
-// })
-// store.setState({
-//   boards: store.getState().boards
-// })
-// }
+  snapshot.forEach(childSnapshot => {
+    let item = childSnapshot.val();
+    let key = childSnapshot.key;
+    item.id = key;
+    console.log("item ", item);
+    datos.push(item);
+    console.log("key ", key);
+  });
+  store.setState({
+    boards: store.getState().boards
+  });
+};
 
-
-export const readAllComments = () =>{
-//   firebase.database()
-//   .ref('boards/')
-//   .on('value', (res) => {
-//     snapshotToArray(res)
-
-//   });
-}
+export const readAllComments = () => {
+  firebase
+    .database()
+    .ref("boards/")
+    .on("value", res => {
+      snapshotToArray(res);
+    });
+};
 
 //   let db =firebase.database();
 //   let dbRef = db.ref().child('data');
@@ -69,7 +102,6 @@ export const readAllComments = () =>{
 //    })
 // });
 
-
 // ref.on(
 //   "value",
 //   function(snapshot) {
@@ -79,11 +111,6 @@ export const readAllComments = () =>{
 //     console.log("The read failed: " + errorObject.code);
 //   }
 // );
-
-
-
-
-
 
 export const selectBoard = index => {
   console.log(index);
@@ -98,9 +125,9 @@ export const selectCard = index => {
   store.setState({});
 };
 
-export const addNewBoard = (text) => {
-         console.log(text);
-       };
+export const addNewBoard = text => {
+  console.log(text);
+};
 // export const playAction = () => {
 //    let selectedSong = store.getState().selectedSong
 //    if (selectedSong == -1 )

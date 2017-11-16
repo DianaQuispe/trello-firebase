@@ -10,7 +10,7 @@ import {
   Button
 } from "react-bootstrap";
 
-import  {readAllComments} from './actions.js'
+import { readAllComments, writeUserData } from "./actions.js";
 import SignUp from "./signUp.js";
 import Board from "./boards.js";
 import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
@@ -42,6 +42,7 @@ const Header = ({ boards, selectItem }) => {
     </div>
   );
 };
+   writeUserData() 
 
 readAllComments();
 const SignIn = ({ boards, selectItem }) => {
