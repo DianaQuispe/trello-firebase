@@ -1,7 +1,9 @@
 import store from "./store";
 import * as firebase from "firebase"; //importamos desde firebase
 
-
+export function addBoards (firstName, lastName, email, password, confirmPassword ) {
+  alert('firstName', firstName+ '-' + 'lastName' ,lastName + 'email', email +'-' +  'password' ,password + '-' + 'confirmPassword', confirmPassword);
+}
 
 var config = { // de la pagina de firebase
   apiKey: "AIzaSyDkZNXDdkzzYQ8ZY9O29YKf_z5Sn1iy-68",
@@ -29,11 +31,11 @@ firebase
   // export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
  
 
-////////////////////////
+// ////////////////////////
 
 // const snapshotToArray = snapshot => {
 // let datos = [];
-// // console.log("datos ", datos);
+// console.log("datos ", datos);
 
 // snapshot.forEach(childSnapshot => {
 //   let item = childSnapshot.val();
@@ -50,12 +52,12 @@ firebase
 
 
 export const readAllComments = () =>{
-  // firebase.database()
-  // .ref('boards/')
-  // .on('value', (res) => {
-  //   snapshotToArray(res)
+//   firebase.database()
+//   .ref('boards/')
+//   .on('value', (res) => {
+//     snapshotToArray(res)
 
-  // });
+//   });
 }
 
 //   let db =firebase.database();

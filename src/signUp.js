@@ -6,12 +6,13 @@ import {
   Row,
   Col,
   FormGroup,
-  FormControl,
+  input,
   Button
 } from "react-bootstrap";
 import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
 import { SignIn } from "./signIn.js";
 import Board from "./boards.js";
+import addBoards from './actions.js'
 
 const Footer = ({ boards }) => {
   return (
@@ -46,50 +47,59 @@ const SignUp = ({ boards, selectItem }) => {
         <Row>
           <Col md={4} mdOffset={3}>
             <Header />
-            <form>
-              <FormGroup>
-                <FormControl
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                addBoards(
+                  this.firstNameRef,
+                  this.lastNameRef,
+                  this.emailRef,
+                  this.passwordRef,
+                  this.confirmPasswordRef
+                );
+              }}
+            >
+                <input
+                  ref={e => (this.firstNameRef = e)}
                   className="input"
                   type="text"
                   label="text"
                   placeholder="First name"
-                  bsSize="sm"
                 />
-                <FormControl
+                <input
+                  ref={e => (this.lastNameRef = e)}
                   className="input"
                   type="text"
                   label="text"
                   placeholder="Last name"
-                  bsSize="sm"
                 />
-                <FormControl
+                <input
+                  ref={e => (this.emailRef = e)}
                   className="input"
                   type="email"
                   label="Email address"
                   placeholder="Email"
-                  bsSize="sm"
                 />
-                <FormControl
+                <input
+                  ref={e => (this.passwordRef = e)}
                   className="input"
                   label="Password"
                   type="password"
                   placeholder="password"
-
                 />
-                <FormControl
+                <input
+                  ref={e => (this.confirmPasswordRef = e)}
                   className="input"
                   label="Password"
                   type="Password"
                   placeholder="Confirm password"
-
                 />
-              </FormGroup>
               <NavLink to="/board">
-              <Button className="button"  >Sign Up</Button>
-            </NavLink>
-            <NavLink to="/signin">
-              <p>sign in</p>
-            </NavLink>
+                <button type='submit' className="button">Sign Up</button>
+              </NavLink>
+              <NavLink to="/signin">
+                <p>sign in</p>
+              </NavLink>
             </form>
           </Col>
         </Row>
