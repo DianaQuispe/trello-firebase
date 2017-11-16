@@ -40,20 +40,35 @@ export function addBoards(
   );
 }
 
-let datosBoards = store.getState().boards;
+// let datosBoards = store.getState().boards;
 
-firebase
-  .database()
-  .ref("datosUsers/")
-  .push({
-    firstName: "asd",
-    lastNamev: "Quasdispe",
-    email: "danaaliasdenmas@gmail.com",
-    password: "as",
-    confirmPassword: "asd"
-  })
-  .then()
-  .catch();
+// firebase
+//   .database()
+//   .ref("datosUsers/")
+//   .push({
+//     firstName: "asd",
+//     lastNamev: "Quasdispe",
+//     email: "danaaliasdenmas@gmail.com",
+//     password: "as",
+//     confirmPassword: "asd"
+//   })
+//   .then()
+//   .catch();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // firebase
 //   .database()
