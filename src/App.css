@@ -102,6 +102,9 @@ h3 {
     position: absolute;
     bottom: 0px;
 }
+.footer * {
+    padding: 3%;
+}
 
 .board {
     margin-left: 0px;

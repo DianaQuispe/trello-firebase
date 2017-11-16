@@ -1,18 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import "./App.css";
-import {
-  Grid,
-  Row,
-  Col,
-  FormGroup,
-  input,
-  Button
-} from "react-bootstrap";
+import { Grid, Row, Col, FormGroup, input, Button } from "react-bootstrap";
 import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
 import { SignIn } from "./signIn.js";
 import Board from "./boards.js";
-import addBoards from './actions.js'
+import { addBoards } from "./actions.js";
 
 const Footer = ({ boards }) => {
   return (
@@ -50,56 +43,64 @@ const SignUp = ({ boards, selectItem }) => {
             <form
               onSubmit={e => {
                 e.preventDefault();
+                // console.log( 'name:', this.firstNameRef);
                 addBoards(
-                  this.firstNameRef,
-                  this.lastNameRef,
-                  this.emailRef,
-                  this.passwordRef,
-                  this.confirmPasswordRef
+                  this.firstNameRef.value,
+                  this.lastNameRef.value,
+                  this.emailRef.value,
+                  this.passwordRef.value,
+                  this.confirmPasswordRef.value
                 );
+                this.firstNameRef.value = "";
+                this.lastNameRef.value = "";
+                this.emailRef.value = "";
+                this.passwordRef.value = "";
+                this.confirmPasswordRef.value = "";
               }}
             >
-                <input
-                  ref={e => (this.firstNameRef = e)}
-                  className="input"
-                  type="text"
-                  label="text"
-                  placeholder="First name"
-                />
-                <input
-                  ref={e => (this.lastNameRef = e)}
-                  className="input"
-                  type="text"
-                  label="text"
-                  placeholder="Last name"
-                />
-                <input
-                  ref={e => (this.emailRef = e)}
-                  className="input"
-                  type="email"
-                  label="Email address"
-                  placeholder="Email"
-                />
-                <input
-                  ref={e => (this.passwordRef = e)}
-                  className="input"
-                  label="Password"
-                  type="password"
-                  placeholder="password"
-                />
-                <input
-                  ref={e => (this.confirmPasswordRef = e)}
-                  className="input"
-                  label="Password"
-                  type="Password"
-                  placeholder="Confirm password"
-                />
-              <NavLink to="/board">
-                <button type='submit' className="button">Sign Up</button>
-              </NavLink>
-              <NavLink to="/signin">
+              <input
+                ref={e => (this.firstNameRef = e)}
+                className="input"
+                type="text"
+                // label="text"
+                placeholder="First name"
+              />
+              <input
+                ref={e => (this.lastNameRef = e)}
+                className="input"
+                type="text"
+                // label="text"
+                placeholder="Last name"
+              />
+              <input
+                ref={e => (this.emailRef = e)}
+                className="input"
+                type="email"
+                // label="Email address"
+                placeholder="Email"
+              />
+              <input
+                ref={e => (this.passwordRef = e)}
+                className="input"
+                // label="Password"
+                type="password"
+                placeholder="password"
+              />
+              <input
+                ref={e => (this.confirmPasswordRef = e)}
+                className="input"
+                // label="Password"
+                type="Password"
+                placeholder="Confirm password"
+              />
+              {/* <NavLink to="/board"> */}
+              <button type="submit" className="button">
+                Sign Up
+              </button>
+              {/* </NavLink> */}
+              {/* <NavLink to="/signin">
                 <p>sign in</p>
-              </NavLink>
+              </NavLink> */}
             </form>
           </Col>
         </Row>
