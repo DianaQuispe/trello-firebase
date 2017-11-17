@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
-import "./App.css";
-import { Grid, Row, Col, FormGroup, input, Button } from "react-bootstrap";
+import "./style/main.css";
+import {
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  Button,
+  InputGroup,
+  FormControl
+} from "react-bootstrap";
 import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
 import { SignIn } from "./signIn.js";
 import Board from "./boards.js";
@@ -38,7 +46,7 @@ const SignUp = ({ boards, selectItem }) => {
     <div>
       <Grid>
         <Row>
-          <Col md={4} mdOffset={3}>
+          <Col className="marginS" md={5} mdOffset={4}>
             <Header />
             <form
               onSubmit={e => {
@@ -58,45 +66,45 @@ const SignUp = ({ boards, selectItem }) => {
                 this.confirmPasswordRef.value = "";
               }}
             >
-              <input
-                ref={e => (this.firstNameRef = e)}
-                className="input"
-                type="text"
-                // label="text"
-                placeholder="First name"
-              />
-              <input
-                ref={e => (this.lastNameRef = e)}
-                className="input"
-                type="text"
-                // label="text"
-                placeholder="Last name"
-              />
-              <input
-                ref={e => (this.emailRef = e)}
-                className="input"
-                type="email"
-                // label="Email address"
-                placeholder="Email"
-              />
-              <input
-                ref={e => (this.passwordRef = e)}
-                className="input"
-                // label="Password"
-                type="password"
-                placeholder="password"
-              />
-              <input
-                ref={e => (this.confirmPasswordRef = e)}
-                className="input"
-                // label="Password"
-                type="Password"
-                placeholder="Confirm password"
-              />
+              <FormGroup>
+                <InputGroup>
+                  <FormControl
+                    ref={e => (this.firstNameRef = e)}
+                    className="input"
+                    type="text"
+                    placeholder="First name"
+                  />
+                  <FormControl
+                    ref={e => (this.lastNameRef = e)}
+                    className="input"
+                    type="text"
+                    placeholder="Last name"
+                  />
+                  <FormControl
+                    ref={e => (this.emailRef = e)}
+                    className="input"
+                    type="email"
+                    placeholder="Email"
+                  />
+                  <FormControl
+                    ref={e => (this.passwordRef = e)}
+                    className="input"
+                    type="password"
+                    placeholder="password"
+                  />
+                  <FormControl
+                    ref={e => (this.confirmPasswordRef = e)}
+                    className="input"
+                    type="Password"
+                    placeholder="Confirm password"
+                  />
+                </InputGroup>
+              </FormGroup>
+
               {/* <NavLink to="/board"> */}
-              <button type="submit" className="button">
+              <Button type="submit" className="button">
                 Sign Up
-              </button>
+              </Button>
               {/* </NavLink> */}
               {/* <NavLink to="/signin">
                 <p>sign in</p>

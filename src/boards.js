@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import { selectBoard, addNewBoard } from "./actions.js";
 import Mainheader from "./mainheader.js";
-import "./App.css";
+import "./style/main.css";
 import {
   Grid,
   Row,
@@ -54,7 +54,7 @@ const Board = ({ boards,selectItem }) => {
            addNewBoard(this.newCardref.value);
          }}>
          <h3>New board</h3>
-         <input ref={e => (this.newCardref = e)} className="input add" label="Password" type="text" placeholder="Add a new card..." />
+         <FormControl ref={e => (this.newCardref = e)} className="input add" label="Password" type="text" placeholder="Add a new card..." />
           <NavLink to="/newboard"> 
            <button type="submit">Create board</button>
          </NavLink> 

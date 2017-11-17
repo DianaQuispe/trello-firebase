@@ -23,6 +23,11 @@ export function writeUserData() {
     });
 }
 
+
+
+export function signInUser(email, password)  {
+  console.log('email', email +'-'+ 'password', password)
+}
 export function addBoards(
   firstName,
   lastName,

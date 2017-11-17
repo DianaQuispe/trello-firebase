@@ -1,36 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
-import "./App.css";
+import "./style/main.css";
 import {
   Grid,
   Row,
   Col,
   FormGroup,
   FormControl,
-  Button
+  Button,
+  InputGroup
 } from "react-bootstrap";
 
-import { readAllComments, writeUserData } from "./actions.js";
+import { readAllComments, writeUserData, signInUser } from "./actions.js";
 import SignUp from "./signUp.js";
 import Board from "./boards.js";
 import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
-
-
+import store from "./store";
 
 const Footer = ({ boards, selectItem }) => {
   return (
-    <div className="footer">
-      <footer>
-        <small>
-          <a href="https://trello.com/" target="_blank">
-            Trello
-          </a>{" "}
-          tribute for educational purposes crafted with ♥ for{" "}
-          <a href="https://diacode.com/">Diacode</a>
-          by <a href="https://twitter.com/bigardone">@bigardone</a>
-        </small>
-      </footer>
-    </div>
+    <footer>
+      <small>
+        <a href="https://trello.com/" target="_blank">
+          Trello
+        </a>{" "}
+        tribute for educational purposes crafted with ♥ for{" "}
+        <a href="https://diacode.com/">Diacode</a>
+        by <a href="https://twitter.com/bigardone">@bigardone</a>
+      </small>
+    </footer>
   );
 };
 const Header = ({ boards, selectItem }) => {
@@ -42,33 +40,51 @@ const Header = ({ boards, selectItem }) => {
     </div>
   );
 };
-   writeUserData() 
-
+writeUserData();
 readAllComments();
+
 const SignIn = ({ boards, selectItem }) => {
   return <div>
       <Grid>
         <Row>
-          <Col md={4} mdOffset={3}>
+          <Col className="marginS" md={5} mdOffset={4}>
             <Header />
-            <form>
+            <form onSubmit={e => {
+                e.preventDefault();
+                signInUser(this.signInEmailRef.value, this.signInPassRef.value);
+                console.log(this.signInEmailRef.value);
+                this.signInEmailRef.value = "";
+                this.signInPassRef.value = "";
+              }}>
               <FormGroup>
-                <FormControl className="input" type="email" label="Email address" bsSize="sm" defaultValue="john@phoenix-trello.com" />
-                <FormControl className="input" label="Password" type="password" defaultValue="*******" />
+                <InputGroup>
+                  <FormControl inputRef={ref => {
+                      this.signInPassRef = ref;
+                    }} className="input" type="email" label="Email address" bsSize="sm" />
+                </InputGroup>
               </FormGroup>
-              <NavLink to="/board">
-                <Button className="button" type="submit">
-                  Sign In
-                </Button>
-              </NavLink>
+              <FormGroup>
+                <InputGroup>
+                  <FormControl inputRef={ref => {
+                      this.signInEmailRef = ref;
+                    }} className="input" label="Password" type="password" defaultValue="*******" />
+                </InputGroup>
+              </FormGroup>
+              {/* <NavLink to="/board"> */}
+              <Button className="button" type="submit">
+                Sign In
+              </Button>
+              {/* </NavLink> */}
             </form>
             <NavLink to="/signup">
-              <font color="#c4b0cf">Create new account</font>
+              <a href="/signup" className="transparent">
+                Create new account
+              </a>
             </NavLink>
           </Col>
         </Row>
-        <Footer />
       </Grid>
+      <Footer />
     </div>;
 };
 

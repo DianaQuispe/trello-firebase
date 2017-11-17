@@ -1,0 +1,188 @@
+.logo {
+  display: inline-block;
+  background: url(../images/logo.png) 0 0 no-repeat;
+  background-size: contain;
+  height: 62px;
+  width: 198px;
+  vertical-align: middle;
+}
+
+body {
+  height: 100vh;
+  background: #89609e;
+  background-size: cover;
+  font: 14px normal "Varela Round", Helvetica, serif;
+}
+
+.marginS {
+  position: absolute;
+  padding: 6%;
+  text-align: center !important;
+}
+
+small {
+  font-size: 80%;
+  line-height: 40px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+h3 {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.17em;
+  margin-bottom: 0;
+  text-align: left;
+  padding: 2%;
+}
+
+.list {
+  background: rgba(222, 225, 227, 0.9);
+  border-radius: 3px;
+  padding: 0.75em;
+  width: 350px;
+  margin: 2%;
+}
+
+.add {
+  padding: 0 !important;
+}
+
+.boards h3 {
+  padding-bottom: 4% !important;
+  margin: 0;
+  color: #363030;
+}
+
+.newBoard {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  color: gray;
+  padding-top: 9% !important;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.list h3 {
+  padding-bottom: 2%;
+  margin: 0;
+  color: #363030;
+}
+
+.newCard {
+  background-color: inherit;
+}
+
+footer {
+  font-size: 1.2em;
+  position: absolute;
+  bottom: 0px;
+  background-color: transparent;
+  margin: 0% 0% 0% 28%;
+}
+
+footer a {
+  color: #bdc3c7;
+}
+
+.board {
+  margin-left: 0px;
+}
+
+.boards {
+  background: rgba(222, 225, 227, 0.9);
+  border-radius: 3px;
+  margin: 0 0.5em 1em 0.5em;
+  width: 100%;
+  line-height: 1.75em;
+  overflow: hidden;
+  padding: 0.75em;
+  min-height: 5em;
+  cursor: pointer;
+}
+
+.card {
+  background: #fff;
+  padding: 0.5em;
+  border-radius: 3px;
+  border-bottom: 1px solid #bdc3c7;
+}
+
+.input {
+  margin-bottom: 2% !important;
+  border: 0px none;
+  color: black;
+  line-height: 1.2em;
+  width: 350px !important;
+  border-radius: 5px !important;
+  font-size: 0.6em;
+}
+
+.input-group {
+  position: relative;
+  left: auto;
+  right: auto;
+  font-size: 1.9em;
+  text-align: center;
+}
+
+.transparent {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.transparent hover {
+  text-decoration: none;
+  color: white;
+  transition: all 0.21s ease-out 0s;
+}
+
+.button {
+  width: 350px !important;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 1em;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  box-sizing: inherit;
+  margin-bottom: 2.3em;
+}
+
+.button:hover {
+  color: #89609e;
+  background: #fff;
+  transition: all 0.21s ease-out 0s;
+}
+
+.main-header {
+  margin-bottom: 4%;
+  background: #745286 !important;
+  line-height: 2.7em;
+  padding: 0 1.5em;
+  color: #fff;
+  position: relative;
+}
+
+.main-header nav {
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header nav .fa {
+  color: #fff;
+}
+
+.main-header a {
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  padding: .3em .5em;
+  line-height: 1em;
+}
+ 
+
+ /*# sourceMappingURL= main.css.map */

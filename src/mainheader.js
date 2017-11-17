@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
-import "./mainheader.css";
+import "./style/main.css";
 import {
   Grid,
   Row,
@@ -15,12 +15,19 @@ import SignUp from "./signUp.js";
 import { selectBoard } from "./actions.js";
 
 const Mainheader = ( {}) =>{ 
-    return <div className=".main-header">
-    m primis in faucibus. Pellentesque sed
-        justo eu tortor maximus semper. Maecenas sollicitudin aliquet augue
-        ac maximus. Fusce sit amet eros ut nisi cursus sodales ut vitae
-        velit. Sed sit amet risus et elit fermentum tempus ac eget nisl.
-      </div>;
+    return (
+        <header className="main-header">
+          <nav>
+            <ul>
+              <li>
+                <a href="#">
+                  <i className="fa fa-columns" />
+                  <span> Boards</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </header>)
 }
 const mapToProps = ({ boards, selectItem, selectCard }) => ({
   boards,

@@ -9,8 +9,7 @@ import {
   FormControl,
   Button
 } from "react-bootstrap";
-
-import "./App.css";
+import "./style/main.css";
 
 const App = ({ boards,selectItem  }) => {
   return (

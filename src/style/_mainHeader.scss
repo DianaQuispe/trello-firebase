@@ -1,0 +1,23 @@
+    .main-header {
+        margin-bottom: 4%;
+        background: #745286 !important;
+        line-height: 2.7em;
+        padding: 0 1.5em;
+        color: #fff;
+        position: relative;
+        nav {
+            float: left;
+            margin: 0;
+            padding: 0;
+            .fa {
+                color: #fff;
+            }
+        }
+        a {
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            padding: .3em .5em;
+            line-height: 1em;
+        }
+    }

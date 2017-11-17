@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import MusicApp from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'redux-zero/react'
