@@ -1,16 +1,6 @@
 import store from "./store";
-import * as firebase from "firebase"; //importamos desde firebase
+import { auth, database, firebase } from "./firebase";
 
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyDkZNXDdkzzYQ8ZY9O29YKf_z5Sn1iy-68",
-  authDomain: "trello-react.firebaseapp.com",
-  databaseURL: "https://trello-react.firebaseio.com",
-  projectId: "trello-react",
-  storageBucket: "trello-react.appspot.com",
-  messagingSenderId: "441370051292"
-};
-firebase.initializeApp(config);
 
 let datosUsers = store.getState().users;
 
