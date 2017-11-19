@@ -31,13 +31,11 @@ const Footer = ({ boards }) => {
     </div>
   );
 };
-const Header = ({ boards }) => {
+const Header = ({ boards, selectItem }) => {
   return (
-    <div>
+    <header>
       <div className="logo" />
-      <br />
-      <br />
-    </div>
+    </header>
   );
 };
 

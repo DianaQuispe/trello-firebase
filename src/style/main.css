@@ -1,9 +1,14 @@
+header {
+  margin-bottom: 2em;
+}
+
 .logo {
+  line-height: 40px;
   display: inline-block;
   background: url(../images/logo.png) 0 0 no-repeat;
   background-size: contain;
   height: 62px;
-  width: 198px;
+  width: 450px;
   vertical-align: middle;
 }
 

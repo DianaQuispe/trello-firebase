@@ -33,41 +33,60 @@ const Footer = ({ boards, selectItem }) => {
 };
 const Header = ({ boards, selectItem }) => {
   return (
-    <div>
+    <header>
       <div className="logo" />
-      <br />
-      <br />
-    </div>
+    </header>
   );
 };
 writeUserData();
 readAllComments();
 
 const SignIn = ({ boards, selectItem }) => {
-  return <div>
-      <Grid fluid='container-fluid'>
+  return (
+    <div className='signIn'>
+      <Grid >
         <Row>
-          <Col  className="marginS" md={5} mdOffset={4} xs={12} sm={12} smOffset={4}>
+          <Col
+            className="marginS"
+            md={5}
+            mdOffset={4}
+            xs={12}
+            sm={12}
+            smOffset={4}
+          >
             <Header />
-            <form onSubmit={e => {
+            <form
+              onSubmit={e => {
                 e.preventDefault();
                 signInUser(this.signInEmailRef.value, this.signInPassRef.value);
                 console.log(this.signInEmailRef.value);
                 this.signInEmailRef.value = "";
                 this.signInPassRef.value = "";
-              }}>
+              }}
+            >
               <FormGroup>
                 <InputGroup>
-                  <FormControl inputRef={ref => {
+                  <FormControl
+                    inputRef={ref => {
                       this.signInPassRef = ref;
-                    }} className="input" type="email" label="Email address" />
+                    }}
+                    className="input"
+                    type="email"
+                    label="Email address"
+                  />
                 </InputGroup>
               </FormGroup>
               <FormGroup>
                 <InputGroup>
-                  <FormControl inputRef={ref => {
+                  <FormControl
+                    inputRef={ref => {
                       this.signInEmailRef = ref;
-                    }} className="input" label="Password" type="password" defaultValue="*******" />
+                    }}
+                    className="input"
+                    label="Password"
+                    type="password"
+                    defaultValue="*******"
+                  />
                 </InputGroup>
               </FormGroup>
               {/* <NavLink to="/board"> */}
@@ -85,7 +104,8 @@ const SignIn = ({ boards, selectItem }) => {
         </Row>
       </Grid>
       <Footer />
-    </div>;
+    </div>
+  );
 };
 
 const mapToProps = ({ boards, selectItem, selectCard }) => ({
