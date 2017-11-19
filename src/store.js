@@ -54,7 +54,14 @@ const BOARDS = [
 ];
 
 const initialState = {
-  users : USERS,
+  successLogin: false,
+  user : {
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+    confirmPassword: null,   
+  },
   boards: BOARDS,
   selectItem: -1,
   selectCard: -1

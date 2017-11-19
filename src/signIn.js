@@ -10,11 +10,11 @@ import {
   Button,
   InputGroup
 } from "react-bootstrap";
+import { NavLink, Redirect } from 'react-router-dom';
 
 import { readAllComments, writeUserData, signInUser } from "./actions.js";
 import SignUp from "./signUp.js";
 import Board from "./boards.js";
-import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
 import store from "./store";
 
 const Footer = ({ boards, selectItem }) => {
@@ -38,12 +38,13 @@ const Header = ({ boards, selectItem }) => {
     </header>
   );
 };
-writeUserData();
-readAllComments();
+// writeUserData();
+// readAllComments();
 
-const SignIn = ({ boards, selectItem }) => {
+const SignIn = ({ boards, selectItem, successLogin }) => {
   return (
     <div className='signIn'>
+     
       <Grid >
         <Row>
           <Col
@@ -89,16 +90,18 @@ const SignIn = ({ boards, selectItem }) => {
                   />
                 </InputGroup>
               </FormGroup>
-              {/* <NavLink to="/board"> */}
+              
+                        {!successLogin && <Redirect to= '/board'/>}
+  
               <Button className="button" type="submit">
                 Sign In
               </Button>
-              {/* </NavLink> */}
+              
             </form>
             <NavLink to="/signup">
-              <a href="/signup" className="transparent">
+              {/* <a href="/signup" className="transparent"> */}
                 Create new account
-              </a>
+              {/* </a> */}
             </NavLink>
           </Col>
         </Row>
@@ -108,10 +111,11 @@ const SignIn = ({ boards, selectItem }) => {
   );
 };
 
-const mapToProps = ({ boards, selectItem, selectCard }) => ({
+const mapToProps = ({ boards, selectItem, selectCard, successLogin }) => ({
   boards,
   selectItem,
-  selectCard
+  selectCard,
+  successLogin
 });
 
 export default connect(mapToProps)(SignIn);

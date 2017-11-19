@@ -1,24 +1,22 @@
 import store from "./store";
 import firebase from "./firebase";
+import { auth, database } from './firebase';
+// import firebase from "firebase";
 
 
-let datosUsers = store.getState().users;
+//   let datosUsers = store.getState().user;
+// export function writeUserData() {
 
-export function writeUserData() {
-  firebase
-    .database()
-    .ref("users")
-    .set({
-      datosUsers
-    });
-}
+//   firebase
+//     .database()
+//     .ref("user")
+//     .set({
+//       datosUsers
+//     });
+// }
 
 
-
-export function signInUser(email, password)  {
-  console.log('email', email +'-'+ 'password', password)
-}
-export function addBoards(
+export function SignUpAdd(
   firstName,
   lastName,
   email,
@@ -33,7 +31,78 @@ export function addBoards(
     password + "-" + "confirmPassword",
     confirmPassword
   );
+
+  auth.createUserWithEmailAndPassword(email, password).then(user => {
+    let newuser = {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword
+    }
+    database.ref('users/' + user.uid).set(newuser);
+
+    // database.ref ('users/' + user.uid + '/options').update ( 'option1, option2, option3...');   
+    //  database.ref ('users/').push (newuser);   
+
+    database.ref('users/' + user.uid).once('value').then(res => {
+      const fullUserInfo = res.val();
+
+      console.log('full info ', fullUserInfo);
+      store.setState({
+        user: {
+          id: user.uid,
+          firstName: fullUserInfo.firstName,
+          lastName: fullUserInfo.lastName,
+          email: fullUserInfo.email,
+          password: fullUserInfo.password,
+          confirmPassword: fullUserInfo.confirmPassword,
+
+        }
+      })
+    })
+
+  })
+
+
 }
+
+
+export function signInUser(email, password) {
+    console.log('email', email +'-'+ 'password', password)
+    auth.signInWithEmailAndPassword(email, password).then(userObj => {
+
+    database.ref('users/' + userObj.uid).once('value').then(res => {
+      const fullUserInfo = res.val();
+
+      console.log('full info ', fullUserInfo);
+      store.setState({
+        user: {
+          id: userObj.uid,
+          firstName: fullUserInfo.firstName,
+          lastName: fullUserInfo.lastName,
+          email: fullUserInfo.email,
+          password: fullUserInfo.password,
+          confirmPassword: fullUserInfo.confirmPassword,
+        }
+      })
+    })
+  }) 
+}
+
+
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log('user', user);
+    let usersRef = database.ref('/users');
+    let userRef = usersRef.child(user.uid);
+    store.setState({
+      successLogin: true
+    })
+  }
+});
+
 
 // let datosBoards = store.getState().boards;
 
@@ -49,17 +118,6 @@ export function addBoards(
 //   })
 //   .then()
 //   .catch();
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -95,12 +153,12 @@ const snapshotToArray = snapshot => {
 };
 
 export const readAllComments = () => {
-  firebase
-    .database()
-    .ref("boards/")
-    .on("value", res => {
-      snapshotToArray(res);
-    });
+  // firebase
+  //   .database()
+  //   .ref("boards/")
+  //   .on("value", res => {
+  //     snapshotToArray(res);
+  //   });
 };
 
 //   let db =firebase.database();

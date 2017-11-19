@@ -10,10 +10,10 @@ import {
   InputGroup,
   FormControl
 } from "react-bootstrap";
-import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
+import { NavLink, Redirect } from 'react-router-dom';
 import { SignIn } from "./signIn.js";
 import Board from "./boards.js";
-import { addBoards } from "./actions.js";
+import { SignUpAdd } from "./actions.js";
 
 const Footer = ({ boards }) => {
   return (
@@ -39,7 +39,7 @@ const Header = ({ boards, selectItem }) => {
   );
 };
 
-const SignUp = ({ boards, selectItem }) => {
+const SignUp = ({ boards, selectItem, successLogin }) => {
   return (
     <div>
       <Grid>
@@ -50,7 +50,7 @@ const SignUp = ({ boards, selectItem }) => {
               onSubmit={e => {
                 e.preventDefault();
                 // console.log( 'name:', this.firstNameRef);
-                addBoards(
+                SignUpAdd(
                   this.firstNameRef.value,
                   this.lastNameRef.value,
                   this.emailRef.value,
@@ -67,31 +67,31 @@ const SignUp = ({ boards, selectItem }) => {
               <FormGroup>
                 <InputGroup>
                   <FormControl
-                    ref={e => (this.firstNameRef = e)}
+                    inputRef={e => (this.firstNameRef = e)}
                     className="input"
                     type="text"
                     placeholder="First name"
                   />
                   <FormControl
-                    ref={e => (this.lastNameRef = e)}
+                    inputRef={e => (this.lastNameRef = e)}
                     className="input"
                     type="text"
                     placeholder="Last name"
                   />
                   <FormControl
-                    ref={e => (this.emailRef = e)}
+                    inputRef={e => (this.emailRef = e)}
                     className="input"
                     type="email"
                     placeholder="Email"
                   />
                   <FormControl
-                    ref={e => (this.passwordRef = e)}
+                    inputRef={e => (this.passwordRef = e)}
                     className="input"
                     type="password"
                     placeholder="password"
                   />
                   <FormControl
-                    ref={e => (this.confirmPasswordRef = e)}
+                    inputRef={e => (this.confirmPasswordRef = e)}
                     className="input"
                     type="Password"
                     placeholder="Confirm password"
@@ -116,6 +116,6 @@ const SignUp = ({ boards, selectItem }) => {
   );
 };
 
-const mapToProps = ({ boards, selectItem }) => ({ boards, selectItem });
+const mapToProps = ({ boards, selectItem, successLogin }) => ({ boards, selectItem, successLogin });
 
 export default connect(mapToProps)(SignUp);
