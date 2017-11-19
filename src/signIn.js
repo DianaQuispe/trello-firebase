@@ -45,9 +45,9 @@ readAllComments();
 
 const SignIn = ({ boards, selectItem }) => {
   return <div>
-      <Grid>
+      <Grid fluid='container-fluid'>
         <Row>
-          <Col className="marginS" md={5} mdOffset={4}>
+          <Col  className="marginS" md={5} mdOffset={4} xs={12} sm={12} smOffset={4}>
             <Header />
             <form onSubmit={e => {
                 e.preventDefault();
@@ -60,7 +60,7 @@ const SignIn = ({ boards, selectItem }) => {
                 <InputGroup>
                   <FormControl inputRef={ref => {
                       this.signInPassRef = ref;
-                    }} className="input" type="email" label="Email address" bsSize="sm" />
+                    }} className="input" type="email" label="Email address" />
                 </InputGroup>
               </FormGroup>
               <FormGroup>

@@ -1,5 +1,5 @@
 import store from "./store";
-import { auth, database, firebase } from "./firebase";
+import firebase from "./firebase";
 
 
 let datosUsers = store.getState().users;

@@ -8,6 +8,7 @@
 }
 
 body {
+  text-align: center;
   height: 100vh;
   background: #89609e;
   background-size: cover;
@@ -15,8 +16,10 @@ body {
 }
 
 .marginS {
+  height: calc(100% - 40px);
+  max-width: 350px;
   position: absolute;
-  padding: 6%;
+  padding: 6% 6%;
   text-align: center !important;
 }
 
@@ -75,11 +78,12 @@ h3 {
 }
 
 footer {
+  text-align: center !important;
   font-size: 1.2em;
   position: absolute;
   bottom: 0px;
+  margin: 0 auto;
   background-color: transparent;
-  margin: 0% 0% 0% 28%;
 }
 
 footer a {
@@ -110,37 +114,19 @@ footer a {
 }
 
 .input {
-  margin-bottom: 2% !important;
-  border: 0px none;
-  color: black;
-  line-height: 1.2em;
   width: 350px !important;
   border-radius: 5px !important;
-  font-size: 0.6em;
-}
-
-.input-group {
-  position: relative;
-  left: auto;
-  right: auto;
-  font-size: 1.9em;
-  text-align: center;
-}
-
-.transparent {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-
-.transparent hover {
-  text-decoration: none;
-  color: white;
-  transition: all 0.21s ease-out 0s;
+  margin: 0em !important;
+  border: 0px none;
+  color: black;
+  padding: 1.6em;
+  line-height: 1.2em;
+  font-size: 1.3em;
 }
 
 .button {
   width: 350px !important;
+  border-radius: 5px !important;
   background: transparent;
   color: #fff;
   border: 1px solid #fff;
@@ -154,6 +140,18 @@ footer a {
 .button:hover {
   color: #89609e;
   background: #fff;
+  transition: all 0.21s ease-out 0s;
+}
+
+.transparent {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.transparent hover {
+  text-decoration: none;
+  color: white;
   transition: all 0.21s ease-out 0s;
 }
 
