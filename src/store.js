@@ -38,15 +38,19 @@ const BOARDS = [
 ];
 
 const initialState = {
+  stages: [],
+  tasks: [] ,
   successLogin: false,
-  user : {
+  user : 
+    {
     firstName: null,
     lastName: null,
     email: null,
     password: null,
     confirmPassword: null,
-    stages: [],
-    tasks: []   
+    stages : null,
+
+ 
   },
   boards: BOARDS,
   selectItem: -1,

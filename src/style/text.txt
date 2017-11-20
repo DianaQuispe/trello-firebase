@@ -128,3 +128,88 @@ h3 {
     border-radius: 3px;
     border-bottom: 1px solid #bdc3c7;
 }
+////////$RECYCLE.BIN// export const playAction = () => {
+//    let selectedSong = store.getState().selectedSong
+//    if (selectedSong == -1 )
+//       selectedSong = 0
+
+//    store.setState({
+//       selectedSong : selectedSong
+//    })
+// }
+
+// export const nextAction = () => {
+
+//    let selectedSong = store.getState().selectedSong + 1
+//    if (selectedSong == store.getState().songs.length )
+//       selectedSong = 0
+
+//    store.setState({
+//       selectedSong : selectedSong
+//    })
+// }
+
+// export const stopAction = () => {
+//    store.setState({
+//       selectedSong : -1
+//    })
+// }
+
+////////////////////
+const snapshotToArray = snapshot => {
+  let datos = [];
+  console.log("datos ", datos);
+
+  snapshot.forEach(childSnapshot => {
+    let item = childSnapshot.val();
+    let key = childSnapshot.key;
+    item.id = key;
+    console.log("item ", item);
+    datos.push(item);
+    console.log("key ", key);
+  });
+  store.setState({
+    boards: store.getState().boards
+  });
+};
+
+export const readAllComments = () => {
+  // firebase
+  //   .database()
+  //   .ref("boards/")
+  //   .on("value", res => {
+  //     snapshotToArray(res);
+  //   });
+};
+
+// let datosBoards = store.getState().boards;
+
+// firebase
+//   .database()
+//   .ref("datosUsers/")
+//   .push({
+//     firstName: "asd",
+//     lastNamev: "Quasdispe",
+//     email: "danaaliasdenmas@gmail.com",
+//     password: "as",
+//     confirmPassword: "asd"
+//   })
+//   .then()
+//   .catch();
+
+
+
+
+
+// firebase
+//   .database()
+//   .ref("users")
+//   .push({ datosUsers })
+//   .then()
+//   .catch();
+
+// export const storage = firebase.storage();
+// export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+// ////////////////////////
+

@@ -11,14 +11,15 @@ import {
 } from "react-bootstrap";
 import "./style/main.css";
 
-const App = ({ boards,selectItem  }) => {
+const App = ({ boards,selectItem, user  }) => {
+  console.log('userapp', user)
   return (
     <div>
-      <SignIn boards={boards} selectItem={selectItem} />
+      <SignIn boards={boards} selectItem={selectItem} user= {user} />
     </div>
   );
 };
 
-const mapToProps = ({ boards, selectItem }) => ({ boards, selectItem });
+const mapToProps = ({ boards, selectItem, user }) => ({ boards, selectItem, user });
 
 export default connect(mapToProps)(App);

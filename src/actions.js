@@ -1,19 +1,57 @@
 import store from "./store";
 import firebase from "./firebase";
 import { auth, database } from './firebase';
-// import firebase from "firebase";
 
 
-//   let datosUsers = store.getState().user;
-// export function writeUserData() {
+export function readBoard() {
+  firebase.database().ref('stages').on('value', res => {
+    let stages = []
+    res.forEach(snap => {
+      const stage = snap.val();
+      stages.push(stage);
+      database.ref('users/').push(stages);   
 
-//   firebase
-//     .database()
-//     .ref("user")
-//     .set({
-//       datosUsers
-//     });
-// }
+    })
+    store.setState({
+      stages: stages
+    })
+
+  });
+
+  firebase.database().ref('tasks').on('value', res => {
+    let tasks = [];
+    res.forEach(snap => {
+      const task = snap.val();
+      tasks.push(task)
+    })
+    store.setState({
+      tasks: tasks
+    })
+  });
+}
+
+
+
+export function addStage(text) {
+
+  let stages = [...store.getState().stages];
+  stages.push(text)
+  firebase.database().ref('stages').push(text);
+}
+
+export function addTask(stage, text) {
+  console.log('addTask:', stage + ' - ' + text);
+
+  let tasks = [...store.getState().tasks];
+
+  let newTask = {
+    id: store.getState().tasks.length,
+    title: text,
+    stage: stage
+  }
+
+  firebase.database().ref('tasks/' + newTask.id).set(newTask);
+}
 
 
 export function SignUpAdd(
@@ -21,25 +59,25 @@ export function SignUpAdd(
   lastName,
   email,
   password,
-  confirmPassword
+  confirmPassword,
+ 
 ) {
   console.log("datos", firstName + "-" + lastName + "-" + email + "-" + password + "-" +  confirmPassword );
 
   auth.createUserWithEmailAndPassword(email, password).then(user => {
+    let stages = [...store.getState().stages];
+    let tasks = [...store.getState().tasks];
+     console.log('action', stages, tasks)
     let newuser = {
       firstName,
       lastName,
       email,
       password,
-      confirmPassword,
-      
-      stages: ['1', 2],
-      tasks: [1, '2']   
+      confirmPassword,    
     }
     database.ref('users/' + user.uid).set(newuser);
 
     // database.ref ('users/' + user.uid + '/options').update ( 'option1, option2, option3...');   
-    //  database.ref ('users/').push (newuser);   
 
     database.ref('users/' + user.uid).once('value').then(res => {
       const fullUserInfo = res.val();
@@ -53,8 +91,6 @@ export function SignUpAdd(
           email: fullUserInfo.email,
           password: fullUserInfo.password,
           confirmPassword: fullUserInfo.confirmPassword,
-          stages: fullUserInfo.stages,
-          tasks: fullUserInfo.tasks,
         }
       })
     })
@@ -86,8 +122,7 @@ export function signInUser(email, password) {
     })
   }) 
 }
-
-
+ 
 
 auth.onAuthStateChanged(user => {
   if (user) {
@@ -95,11 +130,10 @@ auth.onAuthStateChanged(user => {
     let usersRef = database.ref('/users');
     let userRef = usersRef.child(user.uid);
     store.setState({
-      successLogin: true
+      successLogin: true,      
     })
   }
 });
-
 
 
 
@@ -114,85 +148,6 @@ export function signOut() {
   })
 }
 
-
-
-
-
-// let datosBoards = store.getState().boards;
-
-// firebase
-//   .database()
-//   .ref("datosUsers/")
-//   .push({
-//     firstName: "asd",
-//     lastNamev: "Quasdispe",
-//     email: "danaaliasdenmas@gmail.com",
-//     password: "as",
-//     confirmPassword: "asd"
-//   })
-//   .then()
-//   .catch();
-
-
-
-
-
-// firebase
-//   .database()
-//   .ref("users")
-//   .push({ datosUsers })
-//   .then()
-//   .catch();
-
-// export const storage = firebase.storage();
-// export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
-// ////////////////////////
-
-const snapshotToArray = snapshot => {
-  let datos = [];
-  console.log("datos ", datos);
-
-  snapshot.forEach(childSnapshot => {
-    let item = childSnapshot.val();
-    let key = childSnapshot.key;
-    item.id = key;
-    console.log("item ", item);
-    datos.push(item);
-    console.log("key ", key);
-  });
-  store.setState({
-    boards: store.getState().boards
-  });
-};
-
-export const readAllComments = () => {
-  // firebase
-  //   .database()
-  //   .ref("boards/")
-  //   .on("value", res => {
-  //     snapshotToArray(res);
-  //   });
-};
-
-//   let db =firebase.database();
-//   let dbRef = db.ref().child('data');
-
-//   dbRef.on('value', (snapshot) => {
-//        store.setState({
-//       boards : snapshot.val()
-//    })
-// });
-
-// ref.on(
-//   "value",
-//   function(snapshot) {
-//     console.log(snapshot.val());
-//   },
-//   function(errorObject) {
-//     console.log("The read failed: " + errorObject.code);
-//   }
-// );
 
 export const selectBoard = index => {
   console.log(index);
@@ -210,29 +165,3 @@ export const selectCard = index => {
 export const addNewBoard = text => {
   console.log(text);
 };
-// export const playAction = () => {
-//    let selectedSong = store.getState().selectedSong
-//    if (selectedSong == -1 )
-//       selectedSong = 0
-
-//    store.setState({
-//       selectedSong : selectedSong
-//    })
-// }
-
-// export const nextAction = () => {
-
-//    let selectedSong = store.getState().selectedSong + 1
-//    if (selectedSong == store.getState().songs.length )
-//       selectedSong = 0
-
-//    store.setState({
-//       selectedSong : selectedSong
-//    })
-// }
-
-// export const stopAction = () => {
-//    store.setState({
-//       selectedSong : -1
-//    })
-// }

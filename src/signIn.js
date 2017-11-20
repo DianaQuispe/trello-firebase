@@ -38,8 +38,7 @@ const Header = ({ boards, selectItem }) => {
     </header>
   );
 };
-// writeUserData();
-// readAllComments();
+
 
 const SignIn = ({ boards, selectItem, successLogin }) => {
   return (
@@ -88,13 +87,13 @@ const SignIn = ({ boards, selectItem, successLogin }) => {
                   />
                 </InputGroup>
               </FormGroup>
-            <Button className="button" type="submit">
+              <Button  className="button" type="submit">
                 {successLogin && <Redirect to='/board' />}
 
                 Sign In
               </Button>            
             </form>
-            <NavLink to="/signup" className="transparent">
+            <NavLink to='/signup' className="transparent">
                 Create new account
             </NavLink>
           </Col>

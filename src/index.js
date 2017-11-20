@@ -9,13 +9,14 @@ import SignUp from './signUp.js'
 import Board from './boards.js'
 import MyBoards from './myboards.js';
 import Newboard from './newboard.js';
+import { readBoard } from './actions'
 
 
 import { HashRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 
-const Index = ({ boards, selectItem }) => {
-    return <Provider store={store}>
+const Index = () => (
+     <Provider store={store}>
         <HashRouter>
           <Switch>
             <Route exact path="/" component={SignIn} />
@@ -26,7 +27,9 @@ const Index = ({ boards, selectItem }) => {
             <Route path="/myboards" component={MyBoards} />
           </Switch>
         </HashRouter>
-      </Provider>;
-}
+      </Provider>
+)
+readBoard();
+
 ReactDOM.render(<Index />, document.getElementById('root'));
 registerServiceWorker();

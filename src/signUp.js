@@ -39,7 +39,8 @@ const Header = ({ boards, selectItem }) => {
   );
 };
 
-const SignUp = ({ boards, selectItem, successLogin }) => {
+const SignUp = ({ boards, selectItem, successLogin, user }) => {
+  console.log('usersignup', user.tasks)
   return (
     <div>
       <Grid>
@@ -55,7 +56,7 @@ const SignUp = ({ boards, selectItem, successLogin }) => {
                   this.lastNameRef.value,
                   this.emailRef.value,
                   this.passwordRef.value,
-                  this.confirmPasswordRef.value
+                  this.confirmPasswordRef.value,
                 );
                 this.firstNameRef.value = "";
                 this.lastNameRef.value = "";
@@ -98,15 +99,14 @@ const SignUp = ({ boards, selectItem, successLogin }) => {
                   />
                 </InputGroup>
               </FormGroup>
-
-              {/* <NavLink to="/board"> */}
               <Button type="submit" className="button">
+                {successLogin && <Redirect to='/board' />}
+
                 Sign Up
               </Button>
-              {/* </NavLink> */}
-              {/* <NavLink to="/signin">
+              <NavLink to='/signin' >
                 <p>sign in</p>
-              </NavLink> */}
+              </NavLink>
             </form>
           </Col>
         </Row>
@@ -116,6 +116,6 @@ const SignUp = ({ boards, selectItem, successLogin }) => {
   );
 };
 
-const mapToProps = ({ boards, selectItem, successLogin }) => ({ boards, selectItem, successLogin });
+const mapToProps = ({ boards, selectItem, successLogin, user }) => ({ boards, selectItem, successLogin, user });
 
 export default connect(mapToProps)(SignUp);
