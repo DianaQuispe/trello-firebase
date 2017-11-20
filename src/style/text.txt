@@ -212,4 +212,5 @@ export const readAllComments = () => {
 // export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 // ////////////////////////
+utilizar clases
 

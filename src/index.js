@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MusicApp from './App';
+// import MusicApp from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {Provider} from 'redux-zero/react'
 import store from './store'
@@ -16,19 +16,19 @@ import { HashRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 
 const Index = () => (
-     <Provider store={store}>
-        <HashRouter>
-          <Switch>
-            <Route exact path="/" component={SignIn} />
-            <Route path="/signin" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/board" component={Board} />
-            <Route path="/newboard" component={Newboard} />
-            <Route path="/myboards" component={MyBoards} />
-          </Switch>
-        </HashRouter>
-      </Provider>
-)
+  <Provider store={store}>
+    <HashRouter>
+      <Switch>
+        <Route exact path="/" component={SignIn} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/board" component={Board} />
+        <Route exact path="/newboard" component={Newboard} />
+        <Route exact  path="/myboards" component={MyBoards} />
+      </Switch>
+    </HashRouter>
+  </Provider>
+);
 readBoard();
 
 ReactDOM.render(<Index />, document.getElementById('root'));

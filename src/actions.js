@@ -1,65 +1,52 @@
 import store from "./store";
 import firebase from "./firebase";
-import { auth, database } from './firebase';
+import { auth, database } from "./firebase";
 
+let idboard;
 
 export function readBoard() {
-  firebase.database().ref('stages').on('value', res => {
-    let stages = []
-    res.forEach(snap => {
-      const stage = snap.val();
-      stages.push(stage);
-      // database.ref('users/').push(stages);   
+  firebase
+    .database()
+    .ref("/stages/")
+    .on("value", res => {
+      let stages = [];
+      res.forEach(snap => {
+        const stage = snap.val();
+        stages.push(stage);
+        // database.ref('users/').push(stages);
+      });
+      store.setState({
+        stages: stages
+      });
+    });
 
-    })
-    store.setState({
-      stages: stages
-    })
-
-  });
-
-  firebase.database().ref('tasks').on('value', res => {
-    let tasks = [];
-    res.forEach(snap => {
-      const task = snap.val();
-      tasks.push(task)
-    })
-    store.setState({
-      tasks: tasks
-    })
-  });
-
+  firebase
+    .database()
+    .ref("tasks")
+    .on("value", res => {
+      let tasks = [];
+      res.forEach(snap => {
+        const task = snap.val();
+        tasks.push(task);
+      });
+      store.setState({
+        tasks: tasks
+      });
+    });
 }
 
-
-
 export function addStage(text) {
-
   let stages = [...store.getState().stages];
-  stages.push(text)
-  firebase.database().ref('stages').push(text);
-
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      console.log('stageuser', user);
-      console.log('stageuserid',user.uid)
-      // let usersRef = database.ref('/users');
-      // let userRef = usersRef.child(user.uid);
-      // store.setState({
-      //   successLogin: true,
-      // })
-    }
-  });
-
-
-
-
-
-
+  stages.push(text);
+  database.ref("users/" + idboard + "/boards/stages/").set(text);
+  firebase
+    .database()
+    .ref("stages")
+    .push(text);
 }
 
 export function addTask(stage, text) {
-  console.log('addTask:', stage + ' - ' + text);
+  console.log("addTask:", stage + " - " + text);
 
   let tasks = [...store.getState().tasks];
 
@@ -67,21 +54,36 @@ export function addTask(stage, text) {
     id: store.getState().tasks.length,
     title: text,
     stage: stage
-  }
+  };
 
-  firebase.database().ref('tasks/' + newTask.id).set(newTask);
+  database
+    .ref("users/" + idboard + "/boards/stages/tasks/" + newTask.id)
+    .set(newTask);
+  firebase
+    .database()
+    .ref("tasks/" + newTask.id)
+    .set(newTask);
 }
-
 
 export function SignUpAdd(
   firstName,
   lastName,
   email,
   password,
-  confirmPassword,
- 
+  confirmPassword
 ) {
-  console.log("datos", firstName + "-" + lastName + "-" + email + "-" + password + "-" +  confirmPassword );
+  console.log(
+    "datos",
+    firstName +
+      "-" +
+      lastName +
+      "-" +
+      email +
+      "-" +
+      password +
+      "-" +
+      confirmPassword
+  );
 
   auth.createUserWithEmailAndPassword(email, password).then(user => {
     let stages = [...store.getState().stages];
@@ -91,82 +93,75 @@ export function SignUpAdd(
       lastName,
       email,
       password,
-      confirmPassword,    
-    }
-    database.ref('users/' + user.uid).set(newuser);
-
-    // database.ref ('users/' + user.uid + '/options').update ( 'option1, option2, option3...');   
-
-    database.ref('users/' + user.uid).once('value').then(res => {
-      const fullUserInfo = res.val();
-
-      console.log('full info ', fullUserInfo);  // en fullUserInfo se muestra toda la informacion del usuario
-      store.setState({
-        user: {
-          id: user.uid,
-          firstName: fullUserInfo.firstName,
-          lastName: fullUserInfo.lastName,
-          email: fullUserInfo.email,
-          password: fullUserInfo.password,
-          confirmPassword: fullUserInfo.confirmPassword,
-        }
-      })
-    })
-
-  })
-
-
+      confirmPassword,
+      stages,
+      tasks
+    };
+    database.ref("users/" + user.uid).set(newuser);
+    database
+      .ref("users/" + user.uid)
+      .once("value")
+      .then(res => {
+        const fullUserInfo = res.val();
+        console.log("full info ", fullUserInfo); // en fullUserInfo se muestra toda la informacion del usuario
+        store.setState({
+          user: {
+            id: user.uid,
+            firstName: fullUserInfo.firstName,
+            lastName: fullUserInfo.lastName,
+            email: fullUserInfo.email,
+            password: fullUserInfo.password,
+            confirmPassword: fullUserInfo.confirmPassword
+          }
+        });
+      });
+  });
 }
-
 
 export function signInUser(email, password) {
-    console.log('email', email +'-'+ 'password', password)
-    auth.signInWithEmailAndPassword(email, password).then(userObj => {
+  console.log("email", email + "-" + "password", password);
+  auth.signInWithEmailAndPassword(email, password).then(userObj => {
+    database
+      .ref("users/" + userObj.uid)
+      .once("value")
+      .then(res => {
+        const fullUserInfo = res.val();
 
-    database.ref('users/' + userObj.uid).once('value').then(res => {
-      const fullUserInfo = res.val();
-
-      console.log('full info ', fullUserInfo);
-      store.setState({
-        user: {
-          id: userObj.uid,
-          firstName: fullUserInfo.firstName,
-          lastName: fullUserInfo.lastName,
-          email: fullUserInfo.email,
-          password: fullUserInfo.password,
-          confirmPassword: fullUserInfo.confirmPassword,
-        }
-      })
-    })
-  }) 
+        console.log("full info ", fullUserInfo);
+        store.setState({
+          user: {
+            id: userObj.uid,
+            firstName: fullUserInfo.firstName,
+            lastName: fullUserInfo.lastName,
+            email: fullUserInfo.email,
+            password: fullUserInfo.password,
+            confirmPassword: fullUserInfo.confirmPassword
+          }
+        });
+      });
+  });
 }
- 
+auth.onAuthStateChanged(email => {
+  if (email) {
+    idboard = email.uid;
+    console.log("email", email);
+    let usersRef = database.ref("/users");
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    console.log('user', user);
-    console.log(user.uid)
-    let usersRef = database.ref('/users');
-    let userRef = usersRef.child(user.uid);
-    store.setState({
-      successLogin: true,      
-    })
+    store.setState({ successLogin: true });
   }
+  console.log("idboard", idboard);
 });
-
-
 
 export function signOut() {
   auth.signOut();
   store.setState({
     successLogin: false,
     user: {
-      id: '',
-      email: ''
+      id: "",
+      email: ""
     }
-  })
+  });
 }
-
 
 export const selectBoard = index => {
   console.log(index);
