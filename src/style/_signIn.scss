@@ -1,6 +1,7 @@
 header{
-  margin-bottom: 2em;
-}
+margin-bottom: 2em;
+    margin-left: 5em;
+  }
 .logo {
   line-height: 40px;
   display: inline-block;
@@ -21,11 +22,10 @@ body {
 }
 
 .marginS {
-  height: calc(100% - 40px);
-  max-width: 350px;
-  position: absolute;
-  padding: 6% 6%;
-  text-align: center !important;
+    height: calc(100% - 40px);
+     max-width: 350px; 
+    padding: 7% 0% 16% 4%;
+    text-align: center !important;
 }
 
 small {

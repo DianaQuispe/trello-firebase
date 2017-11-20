@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "redux-zero/react";
 import "./style/main.css";
+
 import {
   Grid,
   Row,
@@ -10,13 +11,16 @@ import {
   Button
 } from "react-bootstrap";
 // import {selectMenu} from './actions.js'
-import { HashRouter, Switch, Route, NavLink } from "react-router-dom";
+import { NavLink, Redirect } from 'react-router-dom';
 import SignUp from "./signUp.js";
-import { selectBoard } from "./actions.js";
+import { selectBoard, signOut } from "./actions.js";
 
-const Mainheader = ( {user}) =>{ 
+const Mainheader = ({ user, successLogin}) =>{ 
     return (
         <header className="main-header">
+          {
+          !successLogin && <Redirect to="/signin" />           
+          }
           <nav>
             <ul>
               <li>
@@ -27,32 +31,34 @@ const Mainheader = ( {user}) =>{
               </li>
             </ul>
           </nav>
-          <a href="/" ><span class="logo"></span></a>
+          <a href="/" ><span className="logo"></span></a>
           <nav class="right">
             <ul >
               <li >
-                <a class="current-user" >
+                <a className="current-user" >
                   <img alt="Gravatar "
                    src="//www.gravatar.com/avatar/6a88cfcf7b76267b129b8dc477c4105e?d=retro&amp;r=g&amp;s=50" 
-                   srcset="//www.gravatar.com/avatar/6a88cfcf7b76267b129b8dc477c4105e?d=retro&amp;r=g&amp;s=100 2x" height="50" width="50" class="react-gravatar react-gravatar"/>
+                   srcSet="//www.gravatar.com/avatar/6a88cfcf7b76267b129b8dc477c4105e?d=retro&amp;r=g&amp;s=100 2x" height="50" width="50" class="react-gravatar react-gravatar"/>
                   <span >{user.email}</span>
                </a>
                </li>
                 <li>
-                  <a href="#">
+                  <button  onClick={signOut}>
+                    
                       <i class="fa fa-sign-out" ></i>
                 <span> Sign out</span>
-                </a>
+              </button>
                 </li>
               </ul>
           </nav>
         </header>)
 }
-const mapToProps = ({ boards, selectItem, selectCard, user }) => ({
+const mapToProps = ({ boards, selectItem, selectCard, user, successLogin }) => ({
   boards,
   user,
   selectItem,
-  selectCard
+  selectCard,
+  successLogin
 });
 
 export default connect(mapToProps)(Mainheader);//firebase.database().ref('x').push(text)

@@ -23,14 +23,7 @@ export function SignUpAdd(
   password,
   confirmPassword
 ) {
-  console.log(
-    "firstName",
-    firstName + "-" + "lastName",
-    lastName + "email",
-    email + "-" + "password",
-    password + "-" + "confirmPassword",
-    confirmPassword
-  );
+  console.log("datos", firstName + "-" + lastName + "-" + email + "-" + password + "-" +  confirmPassword );
 
   auth.createUserWithEmailAndPassword(email, password).then(user => {
     let newuser = {
@@ -38,7 +31,10 @@ export function SignUpAdd(
       lastName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      
+      stages: ['1', 2],
+      tasks: [1, '2']   
     }
     database.ref('users/' + user.uid).set(newuser);
 
@@ -48,7 +44,7 @@ export function SignUpAdd(
     database.ref('users/' + user.uid).once('value').then(res => {
       const fullUserInfo = res.val();
 
-      console.log('full info ', fullUserInfo);
+      console.log('full info ', fullUserInfo);  // en fullUserInfo se muestra toda la informacion del usuario
       store.setState({
         user: {
           id: user.uid,
@@ -57,7 +53,8 @@ export function SignUpAdd(
           email: fullUserInfo.email,
           password: fullUserInfo.password,
           confirmPassword: fullUserInfo.confirmPassword,
-
+          stages: fullUserInfo.stages,
+          tasks: fullUserInfo.tasks,
         }
       })
     })
@@ -102,6 +99,23 @@ auth.onAuthStateChanged(user => {
     })
   }
 });
+
+
+
+
+export function signOut() {
+  auth.signOut();
+  store.setState({
+    successLogin: false,
+    user: {
+      id: '',
+      email: ''
+    }
+  })
+}
+
+
+
 
 
 // let datosBoards = store.getState().boards;

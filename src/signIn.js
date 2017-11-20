@@ -43,8 +43,7 @@ const Header = ({ boards, selectItem }) => {
 
 const SignIn = ({ boards, selectItem, successLogin }) => {
   return (
-    <div className='signIn'>
-     
+    <div >
       <Grid >
         <Row>
           <Col
@@ -69,7 +68,7 @@ const SignIn = ({ boards, selectItem, successLogin }) => {
                 <InputGroup>
                   <FormControl
                     inputRef={ref => {
-                      this.signInPassRef = ref;
+                      this.signInEmailRef = ref;
                     }}
                     className="input"
                     type="email"
@@ -81,27 +80,22 @@ const SignIn = ({ boards, selectItem, successLogin }) => {
                 <InputGroup>
                   <FormControl
                     inputRef={ref => {
-                      this.signInEmailRef = ref;
+                      this.signInPassRef = ref;
                     }}
                     className="input"
                     label="Password"
                     type="password"
-                    defaultValue="*******"
                   />
                 </InputGroup>
               </FormGroup>
-              
-                        {!successLogin && <Redirect to= '/board'/>}
-  
-              <Button className="button" type="submit">
+            <Button className="button" type="submit">
+                {successLogin && <Redirect to='/board' />}
+
                 Sign In
-              </Button>
-              
+              </Button>            
             </form>
-            <NavLink to="/signup">
-              {/* <a href="/signup" className="transparent"> */}
+            <NavLink to="/signup" className="transparent">
                 Create new account
-              {/* </a> */}
             </NavLink>
           </Col>
         </Row>

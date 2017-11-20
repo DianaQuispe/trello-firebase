@@ -1,5 +1,6 @@
 header {
   margin-bottom: 2em;
+  margin-left: 5em;
 }
 
 .logo {
@@ -23,8 +24,7 @@ body {
 .marginS {
   height: calc(100% - 40px);
   max-width: 350px;
-  position: absolute;
-  padding: 6% 6%;
+  padding: 7% 0% 16% 4%;
   text-align: center !important;
 }
 
@@ -121,24 +121,22 @@ footer a {
 .input {
   width: 350px !important;
   border-radius: 5px !important;
-  margin: 0em !important;
-  border: 0px none;
+  margin-bottom: 0.5em !important;
   color: black;
   padding: 1.6em;
-  line-height: 1.2em;
   font-size: 1.3em;
 }
 
 .button {
   width: 350px !important;
   border-radius: 5px !important;
+  margin-bottom: 0.5em !important;
   background: transparent;
   color: #fff;
   border: 1px solid #fff;
   padding: 1em;
   font-size: 1.2em;
   line-height: 1.2em;
-  box-sizing: inherit;
   margin-bottom: 2.3em;
 }
 
@@ -161,7 +159,7 @@ footer a {
 }
 
 .main-header {
-  width: 100%;
+  max-width: 100%;
   background: #745286;
   line-height: 2.7em;
   padding: 0  0 1.2em  1.5em;

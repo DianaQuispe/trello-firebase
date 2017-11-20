@@ -1,20 +1,4 @@
 import createStore from "redux-zero";
-const USERS  = [
-  {
-    firstName: 'Diana',
-    lastNamev: 'Quispe',
-    email :'danaalienmas@gmail.com',
-    password: 'abcd',
-    confirmPassword: 'abcd'
-  },
-    {
-    firstName: 'Diana',
-    lastNamev: 'Quispe',
-    email :'danaalienmas@gmail.com',
-    password: 'abcd',
-    confirmPassword: 'abcd'
-  }
-]
 
 const BOARDS = [
   {
@@ -60,7 +44,9 @@ const initialState = {
     lastName: null,
     email: null,
     password: null,
-    confirmPassword: null,   
+    confirmPassword: null,
+    stages: [],
+    tasks: []   
   },
   boards: BOARDS,
   selectItem: -1,

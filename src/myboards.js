@@ -32,7 +32,7 @@ const MyBoards = ({ boards,selectItem, selectCard }) => {
   console.log();
 
   return <Grid className="board flex">
-    <Mainheader/>
+    {Mainheader}
       <Row>
         <h3> {boards[selectItem].name}</h3>
         {boards[selectItem].cards.map((item, index) => {
