@@ -9,7 +9,7 @@ export function readBoard() {
     res.forEach(snap => {
       const stage = snap.val();
       stages.push(stage);
-      database.ref('users/').push(stages);   
+      // database.ref('users/').push(stages);   
 
     })
     store.setState({
@@ -28,6 +28,7 @@ export function readBoard() {
       tasks: tasks
     })
   });
+
 }
 
 
@@ -37,6 +38,24 @@ export function addStage(text) {
   let stages = [...store.getState().stages];
   stages.push(text)
   firebase.database().ref('stages').push(text);
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log('stageuser', user);
+      console.log('stageuserid',user.uid)
+      // let usersRef = database.ref('/users');
+      // let userRef = usersRef.child(user.uid);
+      // store.setState({
+      //   successLogin: true,
+      // })
+    }
+  });
+
+
+
+
+
+
 }
 
 export function addTask(stage, text) {
@@ -67,7 +86,6 @@ export function SignUpAdd(
   auth.createUserWithEmailAndPassword(email, password).then(user => {
     let stages = [...store.getState().stages];
     let tasks = [...store.getState().tasks];
-     console.log('action', stages, tasks)
     let newuser = {
       firstName,
       lastName,
@@ -127,6 +145,7 @@ export function signInUser(email, password) {
 auth.onAuthStateChanged(user => {
   if (user) {
     console.log('user', user);
+    console.log(user.uid)
     let usersRef = database.ref('/users');
     let userRef = usersRef.child(user.uid);
     store.setState({
