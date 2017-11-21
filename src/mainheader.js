@@ -37,17 +37,16 @@ const Mainheader = ({ user, successLogin}) =>{
               <li >
                 <a className="current-user" >
                   <img alt="Gravatar "
+                  className='react-gravatar'
                    src="//www.gravatar.com/avatar/6a88cfcf7b76267b129b8dc477c4105e?d=retro&amp;r=g&amp;s=50" 
                    srcSet="//www.gravatar.com/avatar/6a88cfcf7b76267b129b8dc477c4105e?d=retro&amp;r=g&amp;s=100 2x" height="50" width="50" />
                   <span >{user.email}</span>
                </a>
                </li>
                 <li>
-                  <button  onClick={signOut}>
-                    
-                      <i className="fa fa-sign-out" ></i>
-                <span> Sign out</span>
-              </button>
+              <Button className='buttonhome' onClick={signOut}>
+                SignOut
+         </Button>
                 </li>
               </ul>
           </nav>

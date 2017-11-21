@@ -12,7 +12,8 @@ import {
 } from "react-bootstrap";
 import { NavLink, Redirect } from 'react-router-dom';
 import { SignIn } from "./signIn.js";
-import Board from "./boards.js";
+import Board from './Board';
+import Home from './Home';
 import { SignUpAdd } from "./actions.js";
 
 const Footer = ({ boards }) => {
@@ -43,6 +44,9 @@ const SignUp = ({ boards, selectItem, successLogin, user }) => {
   console.log('usersignup', user.tasks)
   return (
     <div>
+      {/* {
+        successLogin && <Redirect to="/home" />
+      } */}
       <Grid>
         <Row>
           <Col className="marginS" md={5} mdOffset={4}>
@@ -56,13 +60,11 @@ const SignUp = ({ boards, selectItem, successLogin, user }) => {
                   this.lastNameRef.value,
                   this.emailRef.value,
                   this.passwordRef.value,
-                  this.confirmPasswordRef.value,
                 );
                 this.firstNameRef.value = "";
                 this.lastNameRef.value = "";
                 this.emailRef.value = "";
                 this.passwordRef.value = "";
-                this.confirmPasswordRef.value = "";
               }}
             >
               <FormGroup>
@@ -91,22 +93,16 @@ const SignUp = ({ boards, selectItem, successLogin, user }) => {
                     type="password"
                     placeholder="password"
                   />
-                  <FormControl
-                    inputRef={e => (this.confirmPasswordRef = e)}
-                    className="input"
-                    type="Password"
-                    placeholder="Confirm password"
-                  />
                 </InputGroup>
               </FormGroup>
               <Button type="submit" className="button">
-                {successLogin && <Redirect to='/board' />}
+                {successLogin && <Redirect to='/home' />}
 
                 Sign Up
               </Button>
-              <NavLink to='/signin' >
-                <p>sign in</p>
-              </NavLink>
+          <NavLink to='/signin' className="transparent">
+                sign in
+            </NavLink>
             </form>
           </Col>
         </Row>

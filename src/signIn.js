@@ -14,7 +14,7 @@ import { NavLink, Redirect } from 'react-router-dom';
 
 import { readAllComments, writeUserData, signInUser } from "./actions.js";
 import SignUp from "./signUp.js";
-import Board from "./boards.js";
+import Board from './Board';
 import store from "./store";
 
 const Footer = ({ boards, selectItem }) => {
@@ -87,8 +87,8 @@ const SignIn = ({ boards, selectItem, successLogin }) => {
                   />
                 </InputGroup>
               </FormGroup>
-              <Button  className="button" type="submit">
-                {successLogin && <Redirect to='/board' />}
+              <Button className="button" type="submit">
+                {successLogin && <Redirect to='/home' />}
 
                 Sign In
               </Button>            

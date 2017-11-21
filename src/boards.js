@@ -48,10 +48,6 @@ const OtherBoards = ({}) => {
 }
  
 
-//////  
-////// 
-
-
 const Board = ({ boards, user, stages, tasks }) => {
 
   console.log(stages, tasks)
@@ -79,7 +75,8 @@ const Board = ({ boards, user, stages, tasks }) => {
        </form>
      </Col>;
  };
-  return <Grid >
+  return (
+  <Grid >
     <Mainheader/>
       <div>
       <h3>
@@ -117,13 +114,15 @@ const Board = ({ boards, user, stages, tasks }) => {
         <NewBoard/> */}
       </div>
       {/* <OtherBoards /> */}
-    </Grid>;
+    </Grid>
+    );
 };
 
 
 const mapToProps = ({ boards, selectItem, user, stages, tasks }) => ({ boards, selectItem, user, stages, tasks });
 
 export default connect(mapToProps)(Board);
+
 
 
 

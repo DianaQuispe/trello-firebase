@@ -3,74 +3,12 @@ import firebase from "./firebase";
 import { auth, database } from "./firebase";
 
 let idboard;
-
-export function readBoard() {
-  firebase
-    .database()
-    .ref("/stages/")
-    .on("value", res => {
-      let stages = [];
-      res.forEach(snap => {
-        const stage = snap.val();
-        stages.push(stage);
-        // database.ref('users/').push(stages);
-      });
-      store.setState({
-        stages: stages
-      });
-    });
-
-  firebase
-    .database()
-    .ref("tasks")
-    .on("value", res => {
-      let tasks = [];
-      res.forEach(snap => {
-        const task = snap.val();
-        tasks.push(task);
-      });
-      store.setState({
-        tasks: tasks
-      });
-    });
-}
-
-export function addStage(text) {
-  let stages = [...store.getState().stages];
-  stages.push(text);
-  database.ref("users/" + idboard + "/boards/stages/").set(text);
-  firebase
-    .database()
-    .ref("stages")
-    .push(text);
-}
-
-export function addTask(stage, text) {
-  console.log("addTask:", stage + " - " + text);
-
-  let tasks = [...store.getState().tasks];
-
-  let newTask = {
-    id: store.getState().tasks.length,
-    title: text,
-    stage: stage
-  };
-
-  database
-    .ref("users/" + idboard + "/boards/stages/tasks/" + newTask.id)
-    .set(newTask);
-  firebase
-    .database()
-    .ref("tasks/" + newTask.id)
-    .set(newTask);
-}
-
+let myboards;
 export function SignUpAdd(
   firstName,
   lastName,
   email,
   password,
-  confirmPassword
 ) {
   console.log(
     "datos",
@@ -80,9 +18,7 @@ export function SignUpAdd(
       "-" +
       email +
       "-" +
-      password +
-      "-" +
-      confirmPassword
+      password
   );
 
   auth.createUserWithEmailAndPassword(email, password).then(user => {
@@ -93,7 +29,6 @@ export function SignUpAdd(
       lastName,
       email,
       password,
-      confirmPassword,
       stages,
       tasks
     };
@@ -111,11 +46,32 @@ export function SignUpAdd(
             lastName: fullUserInfo.lastName,
             email: fullUserInfo.email,
             password: fullUserInfo.password,
-            confirmPassword: fullUserInfo.confirmPassword
           }
         });
       });
   });
+}
+
+export function signOut() {
+  auth.signOut();
+  store.setState({
+    successLogin: false,
+    user: {
+      id: "",
+      email: ""
+    }
+  });
+}
+
+export function addNewBoard(title, userId) {
+
+  database.ref('boards/').push({
+    title: title,
+    user_id: userId
+  }).then(res => {
+    console.log('board id: ', res.key)
+  });
+
 }
 
 export function signInUser(email, password) {
@@ -135,33 +91,181 @@ export function signInUser(email, password) {
             lastName: fullUserInfo.lastName,
             email: fullUserInfo.email,
             password: fullUserInfo.password,
-            confirmPassword: fullUserInfo.confirmPassword
           }
         });
       });
   });
 }
-auth.onAuthStateChanged(email => {
-  if (email) {
-    idboard = email.uid;
-    console.log("email", email);
-    let usersRef = database.ref("/users");
+export function readBoard() {
+  // firebase
+  //   .database()
+  //   .ref("/stages/")
+  //   .on("value", res => {
+  //     let stages = [];
+  //     res.forEach(snap => {
+  //       const stage = snap.val();
+  //       stages.push(stage);
+  //       // database.ref('users/').push(stages);
+  //     });
+  //     store.setState({
+  //       stages: stages
+  //     });
+  //   });
 
-    store.setState({ successLogin: true });
+  // firebase
+  //   .database()
+  //   .ref("tasks")
+  //   .on("value", res => {
+  //     let tasks = [];
+  //     res.forEach(snap => {
+  //       const task = snap.val();
+  //       tasks.push(task);
+  //     });
+  //     store.setState({
+  //       tasks: tasks
+  //     });
+  //   });
+}
+
+// export function addStage(text) {
+//   let stages = [...store.getState().stages];
+//   stages.push(text);
+//   database.ref("users/" + idboard + "/boards/stages/").set(text);
+//   firebase
+//     .database()
+//     .ref("stages")
+//     .push(text);
+// }
+
+export function addStage(text, board_id) {
+  let newobj = {
+    title: text,
+    board_id: board_id
   }
-  console.log("idboard", idboard);
+  console.log('stage', newobj)
+
+  database.ref('stages').push(newobj);
+}
+
+export function addTask(stageId, text) {
+  console.log('addTask:', stageId + ' - ' + text);
+
+  let tasks = [...store.getState().tasks];
+
+  let newTask = {
+    id: store.getState().tasks.length,
+    title: text,
+    stageId: stageId
+  }
+  database.ref('tasks/' + newTask.id).set(newTask);
+}
+
+
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    console.log('user', user);
+    let usersRef = database.ref('/users');
+    let userRef = usersRef.child(user.uid);
+
+    database.ref('users/' + user.uid).once('value').then(res => {
+      const fullUserInfo = res.val();
+
+      store.setState({
+        successLogin: true,
+        user: {
+          id: user.uid,
+          email: fullUserInfo.email,
+          fullname: fullUserInfo.fullname,
+          survey: fullUserInfo.survey,
+          question: fullUserInfo.question,
+          options: fullUserInfo.options
+        }
+      })
+    });
+
+    database.ref('boards').on('value', res => {
+      let boards = [];
+      res.forEach(snap => {
+        const board = snap.val();
+        board.id = snap.key;
+        boards.push(board)
+                myboards = board.title;
+
+
+      })
+      store.setState({
+        boards: boards.filter(board => board.user_id === user.uid)
+      })
+      // myboards = 
+      // console.log('miidboard', user.uid)
+      console.log('boardtitle', myboards, user.uid)
+
+
+    });
+
+    database.ref('stages').on('value', res => {
+      let stages = []
+      res.forEach(snap => {
+        const stage = snap.val();
+        stage.id = snap.key;
+        stages.push(stage);
+      })
+      store.setState({
+        stages: stages
+      })
+    });
+
+    database.ref('tasks').on('value', res => {
+      let tasks = [];
+      res.forEach(snap => {
+        const task = snap.val();
+        tasks.push(task)
+      })
+      store.setState({
+        tasks: tasks
+      })
+    });
+
+  }
 });
 
-export function signOut() {
-  auth.signOut();
-  store.setState({
-    successLogin: false,
-    user: {
-      id: "",
-      email: ""
-    }
-  });
-}
+// auth.onAuthStateChanged(email => {
+//   if (email) {
+//     idboard = email.uid;
+//     console.log("email", email);
+//     let usersRef = database.ref("/users");
+
+//     store.setState({ successLogin: true });
+//   }
+//   console.log("idboard", idboard);
+// });
+
+
+
+// export function addTask(stage, text) {
+//   console.log("addTask:", stage + " - " + text);
+
+//   let tasks = [...store.getState().tasks];
+
+//   let newTask = {
+//     id: store.getState().tasks.length,
+//     title: text,
+//     stage: stage
+//   };
+
+//   database
+//     .ref("users/" + idboard + "/boards/stages/tasks/" + newTask.id)
+//     .set(newTask);
+//   firebase
+//     .database()
+//     .ref("tasks/" + newTask.id)
+//     .set(newTask);
+// }
+
+
+
+
 
 export const selectBoard = index => {
   console.log(index);
@@ -176,6 +280,6 @@ export const selectCard = index => {
   store.setState({});
 };
 
-export const addNewBoard = text => {
-  console.log(text);
-};
+// export const addNewBoard = text => {
+//   console.log(text);
+// };

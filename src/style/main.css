@@ -1,21 +1,27 @@
 .Board-container {
   display: flex;
+  -ms-flex-direction: row;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin: 30px;
 }
 
 .Board-container .Board-column {
   display: flex;
+  margin: 30px;
   width: 100%;
   max-width: 200px;
   padding: 0 10px 0px 10px;
 }
 
+.Board-container .Board-column .savelist {
+  position: absolute;
+  padding: 30px;
+}
+
 .Board-container .Board-column .Create-container {
-  margin-top: 30px;
+  margin: 30px;
   height: 100%;
 }
 
@@ -32,6 +38,10 @@ header {
   height: 62px;
   width: 450px;
   vertical-align: middle;
+}
+
+* {
+  outline: 2px solid red;
 }
 
 body {
@@ -180,13 +190,43 @@ footer a {
 }
 
 .main-header {
+  /* outline: 2px solid red; */
   width: 100%;
   height: 40px;
   background: #745286;
   line-height: 2.7em;
-  padding: 0  0 1.2em  1.5em;
+  padding: 0;
   color: #fff;
-  margin-bottom: 3.9em;
+  margin: 0 auto;
+}
+
+.main-header .current-user {
+  position: absolute;
+  top: 2px;
+  right: 110px;
+}
+
+.main-header .buttonhome {
+  background: inherit;
+  color: inherit;
+  position: absolute;
+  right: 10px;
+  top: 6px;
+}
+
+.main-header .react-gravatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  top: 50%;
+}
+
+.main-header .logo {
+  background-size: contain;
+  height: 32px;
+  width: 110px;
+  top: 50%;
+  left: 50%;
 }
 
 .main-header nav {
