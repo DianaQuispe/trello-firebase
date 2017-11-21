@@ -25,6 +25,7 @@ const Home = ({ successLogin, user, boards, stages, tasks }) => {
           <span> My boards</span>
         </h3>
         <div>
+          {successLogin && <Redirect to="/myboard" />}
           <form className="boards" onSubmit={e => {
               e.preventDefault();
               addNewBoard(this.boardInputRef.value, user.id);
