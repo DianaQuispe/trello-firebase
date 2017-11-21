@@ -18,9 +18,7 @@ import { selectBoard, signOut } from "./actions.js";
 const Mainheader = ({ user, successLogin}) =>{ 
     return (
         <header className="main-header">
-          {
-          !successLogin && <Redirect to="/signin" />           
-          }
+     
           <nav>
             <ul>
               <li>

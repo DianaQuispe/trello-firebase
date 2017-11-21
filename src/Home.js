@@ -24,6 +24,9 @@ const Home = ({ successLogin, user, boards, stages, tasks }) => {
           <i className="fa fa-user" />
           <span> My boards</span>
         </h3>
+             {
+          !successLogin && <Redirect to="/signin" />           
+          }
         <div>
           {successLogin && <Redirect to="/myboard" />}
           <form className="boards" onSubmit={e => {
