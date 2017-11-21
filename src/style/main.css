@@ -65,13 +65,24 @@ h3 {
   border-radius: 3px;
 }
 
-.container_board {
+.Board-container {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
   margin-top: 10px;
   margin-left: 10px;
+}
+
+.Board-column {
+  display: flex;
+  width: 100%;
+  padding: 0 10px 0px 10px;
+}
+
+.Board-column > .Create-container {
+  margin-top: 30px;
+  height: 100%;
 }
 
 .boards {
@@ -111,9 +122,9 @@ h3 {
 footer {
   text-align: center !important;
   font-size: 1.2em;
-  position: absolute;
+  position: relative;
   bottom: 0px;
-  margin: 0 auto;
+  margin: 0 55px;
   background-color: transparent;
 }
 

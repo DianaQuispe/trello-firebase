@@ -39,7 +39,7 @@ class Board extends React.Component {
     return <div>
         <br />
         <h3> {title} </h3>
-        <form className="boards Board-column" onSubmit={e => {
+        <form className="boards" onSubmit={e => {
             e.preventDefault();
             addStage(this.stageInputRef.value, boardId);
             this.stageInputRef.value = "";
@@ -77,7 +77,7 @@ const Myboard = ({ successLogin, user, boards, stages, tasks }) => {
     });
   return (<Grid>
       <Mainheader />
-      <div className='container_board'>
+      <div >
         <ul>{list}</ul>
       </div>
     </Grid>);
