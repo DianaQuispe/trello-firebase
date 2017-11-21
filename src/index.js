@@ -6,13 +6,20 @@ import {Provider} from 'redux-zero/react'
 import store from './store'
 import SignIn from './signIn.js'
 import SignUp from './signUp.js'
-// import Board from './boards.js'
-
+import { signIn, signOut, signUp, addNewBoard } from "./actions";
+import {
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  FormControl,
+  Button
+} from "react-bootstrap";
 import { readBoard } from './actions'
 import Home from './Home';
-import Board from './Board';
+import Myboard from "./Board";
 
-import { HashRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { HashRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
 
 
 const Index = () => (
@@ -20,12 +27,10 @@ const Index = () => (
     <HashRouter>
       <Switch>
         <Route exact path="/" component={SignIn} />
-
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/home" component={Home} />
-        <Route  exact path="/board" component={Board} />
-      
+        <Route exact path="/myboard" component={Myboard} />
       </Switch>
     </HashRouter>
   </Provider>

@@ -44,9 +44,6 @@ const SignUp = ({ boards, selectItem, successLogin, user }) => {
   console.log('usersignup', user.tasks)
   return (
     <div>
-      {/* {
-        successLogin && <Redirect to="/home" />
-      } */}
       <Grid>
         <Row>
           <Col className="marginS" md={5} mdOffset={4}>
